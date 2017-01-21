@@ -1,3 +1,4 @@
+import Phaser from 'phaser'
 import config from '../config'
 import Song from '../game_objects/Song'
 
@@ -5,7 +6,7 @@ export default class SongFactory {
   constructor(game) {
     this.game = game;
     this.songs = config.songs.map((song, index) => {
-      return new Song(song, {game:this});
+      return new Song(song, {game:this.game});
     });
     this._addToGame();
   }

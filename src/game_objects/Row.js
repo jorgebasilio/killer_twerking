@@ -4,7 +4,6 @@ export default class Row extends Phaser.Graphics {
 
   constructor(game, x, y, width, height, background) {
     super(game, x, y);
-    this.beginFill(background);
     this.lineStyle(2, 0x000000, 1);
     this._createRect(width, height);
     this.endFill();

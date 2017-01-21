@@ -15,8 +15,7 @@ export default class extends Phaser.State {
     let songs;
     let banner;
 
-    factory = new SongFactory(this);
-
+    factory = new SongFactory(this.game);
 
     banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText)
     banner.font = 'Bangers'
