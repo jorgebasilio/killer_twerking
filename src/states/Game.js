@@ -41,11 +41,12 @@ export default class Game extends Phaser.State {
   _checkInput(key, symbol) {
     if (key.isDown) {
       if(this.songStatus.note && this.songStatus.note.symbol == symbol && this.songStatus.status != 'done') {
-        console.log("!!!!!!!")
+        //console.log("!!!!!!!")
         this.banner.text = this.songStatus.range;
         this.songStatus.status = 'done';
-        console.log(this.songStatus.range);
-        console.log("!!!!!!!")
+        this._updateScore(this.songStatus.range);
+        //console.log(this.songStatus.range);
+        //console.log("!!!!!!!")
       }
     }
   }
@@ -96,8 +97,18 @@ export default class Game extends Phaser.State {
     }
   }
 
-  _updateScore(){
-
+  _updateScore(name){
+    switch(name){
+      case 'bad':
+        this.score += 1;
+      case 'good':
+        this.score += 1;
+      case 'perfect':
+        this.score += 2;
+      default: 
+        console.log(this.score);  
+    }
+    console.log(name);
   }
 
   _check(sprite, hubSprite) {
