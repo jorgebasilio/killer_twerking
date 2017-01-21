@@ -1,5 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
+import Mushroom from '../sprites/Mushroom'
 
 export default class extends Phaser.State {
   init () {}
@@ -18,6 +19,16 @@ export default class extends Phaser.State {
     menu.anchor.setTo(0.5)
     menu.inputEnabled = true
     menu.events.onInputUp.add(this.menuOnClick, this)
+
+    this.mushroom = new Mushroom({
+      game: this,
+      x: this.world.centerX,
+      y: this.world.centerY,
+      asset: 'mushroom'
+    })
+
+    this.game.add.existing(this.mushroom)
+    console.log(this.world.top)
   }
   menuOnClick(){
     this.state.start('Menu')
