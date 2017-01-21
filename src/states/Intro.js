@@ -1,4 +1,3 @@
-/* globals __DEV__ */
 import Phaser from 'phaser'
 
 export default class extends Phaser.State {
@@ -6,7 +5,7 @@ export default class extends Phaser.State {
   preload () {}
 
   create () {
-    const bannerText = 'Killer Twerking'
+    const bannerText = 'Introduction.'
     let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText)
     banner.font = 'Bangers'
     banner.padding.set(10, 16)
@@ -14,13 +13,11 @@ export default class extends Phaser.State {
     banner.fill = '#77BFA3'
     banner.smoothed = false
     banner.anchor.setTo(0.5)
-    let menu = this.add.text(this.world.centerX, 200, 'Menu')
-    menu.anchor.setTo(0.5)
-    menu.inputEnabled = true
-    menu.events.onInputUp.add(this.menuOnClick, this)
+    this.game.time.events.add(Phaser.Timer.SECOND * 5, this.timed, this)
   }
-  menuOnClick(){
-    this.state.start('Menu')
+
+  timed (){
+    this.state.start('Game')
   }
   render () {
 

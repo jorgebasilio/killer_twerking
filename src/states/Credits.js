@@ -1,4 +1,3 @@
-/* globals __DEV__ */
 import Phaser from 'phaser'
 
 export default class extends Phaser.State {
@@ -6,7 +5,7 @@ export default class extends Phaser.State {
   preload () {}
 
   create () {
-    const bannerText = 'Killer Twerking'
+    const bannerText = 'Credits'
     let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText)
     banner.font = 'Bangers'
     banner.padding.set(10, 16)
@@ -23,6 +22,5 @@ export default class extends Phaser.State {
     this.state.start('Menu')
   }
   render () {
-
   }
 }
