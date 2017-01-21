@@ -6,11 +6,10 @@ export default class Song extends Phaser.Group {
     super(game, parent, name, addToStage, enableBody, physicsBodyType);
     this._createRows(song);
     this._addToSong();
-    this.y = game.height
   }
 
   update(){
-    this.y -= 2;
+    this.y -= 1;
   }
 
   _addToSong() {
@@ -22,7 +21,7 @@ export default class Song extends Phaser.Group {
   _createRows(song) {
     this.songRows = song.notes.map((note, index) => {
       console.log(note);
-      return new SongRow(note, index, {game:this});
+      return new SongRow(note, index, this.game.height, {game:this});
     });
   }
 
