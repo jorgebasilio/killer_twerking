@@ -33,9 +33,9 @@ export default class Game extends Phaser.State {
       note: null,
       status: null
     }
+    this._createTitle('Killer Twerking');
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
-    this._createTitle('Killer Twerking');
   }
 
   _checkInput(key, symbol) {
@@ -62,7 +62,6 @@ export default class Game extends Phaser.State {
     this._checkInput(this.cursors.left, 'l');
     this._checkInput(this.cursors.right, 'r');
     this._checkInput(this.cursors.down, 'n');
-
   }
 
   _createTitle(text) {
@@ -101,13 +100,17 @@ export default class Game extends Phaser.State {
     switch(name){
       case 'bad':
         this.score += 1;
+        break;
       case 'good':
         this.score += 1;
+        break;
       case 'perfect':
         this.score += 2;
-      default: 
-        console.log(this.score);  
+        break;
+      default:
+        console.log(this.score);
     }
+    console.log(this.score);
     console.log(name);
   }
 
