@@ -34,6 +34,17 @@ export default class Game extends Phaser.State {
     this._createTitle('Killer Twerking');
   }
 
+  _checkInput(key, symbol) {
+    if (key.isDown) {
+      if(this.songStatus.note && this.songStatus.note.symbol == symbol) {
+        console.log("!!!!!!!")
+        this.banner.text = this.songStatus.range;
+        console.log(this.songStatus.range);
+        console.log("!!!!!!!")
+      }
+    }
+  }
+
   update() {
     for (let sprite of this.noteSprites) {
       let hudSprite;
@@ -42,33 +53,9 @@ export default class Game extends Phaser.State {
       this._check(sprite, hudSprite);
     }
 
-    if (this.cursors.left.isDown) {
-      if(this.songStatus.note && this.songStatus.note.symbol == 'l') {
-        console.log("!!!!!!!")
-        this.banner.text = this.songStatus.range;
-        console.log(this.songStatus.range);
-        console.log("!!!!!!!")
-      }
-    }
-
-    if (this.cursors.right.isDown) {
-      if(this.songStatus.note && this.songStatus.note.symbol == 'r') {
-        console.log("!!!!!!!")
-        this.banner.text = this.songStatus.range;
-        console.log(this.songStatus.range);
-        console.log("!!!!!!!")
-      }
-    }
-
-    if (this.cursors.down.isDown) {
-      if(this.songStatus.note && this.songStatus.note.symbol == 'n') {
-        console.log("!!!!!!!")
-        this.banner.text = this.songStatus.range;
-        console.log(this.songStatus.range);
-        this.songStatus.status = 'done'
-        console.log("!!!!!!!")
-      }
-    }
+    this._checkInput(this.cursors.left, 'l');
+    this._checkInput(this.cursors.right, 'r');
+    this._checkInput(this.cursors.down, 'n');
 
   }
 
