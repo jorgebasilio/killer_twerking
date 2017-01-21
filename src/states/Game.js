@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 import SongFactory from '../service_objects/SongFactory'
 import Hud from '../game_objects/Hud'
+import Fatty from '../game_objects/Fatty'
 
 export default class Game extends Phaser.State {
   init () {}
@@ -12,15 +13,18 @@ export default class Game extends Phaser.State {
   create () {
     let  factory;
     let currentSong;
+    let fatty;
     factory = new SongFactory(this.game);
 
     currentSong = factory.songs[0];
     factory._startSong(currentSong);
 
     this.noteSprites = factory._sprites(currentSong);
-
+    this.score = 0;
     this.hud = new Hud({game:this.game});
     this.game.add.group(this.hud);
+    this.fatty = new Fatty({game:this.game});
+    this.game.add.group(this.fatty);
 
     this.lastIndex = 0;
     this.songStatus = {
@@ -36,9 +40,10 @@ export default class Game extends Phaser.State {
 
   _checkInput(key, symbol) {
     if (key.isDown) {
-      if(this.songStatus.note && this.songStatus.note.symbol == symbol) {
+      if(this.songStatus.note && this.songStatus.note.symbol == symbol && this.songStatus.status != 'done') {
         console.log("!!!!!!!")
         this.banner.text = this.songStatus.range;
+        this.songStatus.status = 'done';
         console.log(this.songStatus.range);
         console.log("!!!!!!!")
       }
@@ -46,9 +51,9 @@ export default class Game extends Phaser.State {
   }
 
   update() {
-    for (let sprite of this.noteSprites) {
+    let sprite = this.noteSprites[0];
+    if(sprite) {
       let hudSprite;
-
       hudSprite = this.hud._spriteByNote(sprite.data);
       this._check(sprite, hudSprite);
     }
@@ -87,16 +92,32 @@ export default class Game extends Phaser.State {
     if(centerHub.y - range == centerSprite.y) {
       this.songStatus.range = name;
       this.songStatus.note = sprite.data;
+      if (callback) callback();
     }
+  }
+
+  _updateScore(){
+
   }
 
   _check(sprite, hubSprite) {
     this._checkRange(sprite, hubSprite, 10, 'bad');
     this._checkRange(sprite, hubSprite, 8, 'good');
-    this._checkRange(sprite, hubSprite, 3, 'perfect');
+    this._checkRange(sprite, hubSprite, 4, 'perfect');
     this._checkRange(sprite, hubSprite, -8, 'good');
     this._checkRange(sprite, hubSprite, -10, 'bad');
-    this._checkRange(sprite, hubSprite, -11, 'missed');
+    this._checkRange(sprite, hubSprite, -12, 'missed', () => {
+      if(this.songStatus.status != 'done') {
+        this.banner.text = 'missed';
+      }
+      this.songStatus = {
+        index: 0,
+        range: null,
+        note: null,
+        status: null
+      }
+      this.noteSprites.splice(0,1);
+    });
   }
 
   render () {
