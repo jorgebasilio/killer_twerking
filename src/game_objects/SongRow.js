@@ -8,11 +8,9 @@ export default class SongRow extends Phaser.Group {
   constructor(note, index, marginTop, {game, parent, name, addToStage, enableBody, physicsBodyType}) {
     super(game, parent, name, addToStage, enableBody, physicsBodyType);
 
-    console.log("EN EL CONSTRUCTOR!")
     this.note = note;
     this.index = index;
     this.marginTop = marginTop
-    //this._defaultValues();
 
     this._createBackground();
     this._createSprite();
@@ -38,7 +36,7 @@ export default class SongRow extends Phaser.Group {
 
   _createBackground() {
     let graphics;
-    graphics = new Row(game, 0, this._setHeight(), 300, 80, 0x028231);
+    graphics = new Row(game, 0, this._setHeight(), 300, 80, 0x0282310);
     this.add(graphics);
   }
 

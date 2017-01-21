@@ -9,7 +9,7 @@ export default class Song extends Phaser.Group {
   }
 
   update(){
-    this.y -= 1;
+    this.y -= 4;
   }
 
   _addToSong() {
@@ -20,7 +20,6 @@ export default class Song extends Phaser.Group {
 
   _createRows(song) {
     this.songRows = song.notes.map((note, index) => {
-      console.log(note);
       return new SongRow(note, index, this.game.height, {game:this});
     });
   }

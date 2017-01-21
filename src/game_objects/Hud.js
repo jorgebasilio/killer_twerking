@@ -22,6 +22,7 @@ export default class Hud extends Phaser.Group {
   _createBackground() {
     let graphics;
     graphics = new Row(game, 0, 0, 300, 80, 0x712871);
+    graphics.alpha = 0.5;
     this.add(graphics);
   }
 

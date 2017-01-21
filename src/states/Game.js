@@ -12,7 +12,6 @@ export default class Game extends Phaser.State {
   create () {
     let  factory;
     let currentSong;
-
     factory = new SongFactory(this.game);
 
     currentSong = factory.songs[0];
@@ -23,13 +22,15 @@ export default class Game extends Phaser.State {
     this.hud = new Hud({game:this.game});
     this.game.add.group(this.hud);
 
+    this.lastIndex = 0;
     this.songStatus = {
       index: 0,
       range: null,
-      symbol: null,
+      note: null,
       status: null
     }
 
+    this.cursors = this.game.input.keyboard.createCursorKeys();
     this._createTitle('Killer Twerking');
   }
 
@@ -40,20 +41,49 @@ export default class Game extends Phaser.State {
       hudSprite = this.hud._spriteByNote(sprite.data);
       this._check(sprite, hudSprite);
     }
+
+    if (this.cursors.left.isDown) {
+      if(this.songStatus.note && this.songStatus.note.symbol == 'l') {
+        console.log("!!!!!!!")
+        this.banner.text = this.songStatus.range;
+        console.log(this.songStatus.range);
+        console.log("!!!!!!!")
+      }
+    }
+
+    if (this.cursors.right.isDown) {
+      if(this.songStatus.note && this.songStatus.note.symbol == 'r') {
+        console.log("!!!!!!!")
+        this.banner.text = this.songStatus.range;
+        console.log(this.songStatus.range);
+        console.log("!!!!!!!")
+      }
+    }
+
+    if (this.cursors.down.isDown) {
+      if(this.songStatus.note && this.songStatus.note.symbol == 'n') {
+        console.log("!!!!!!!")
+        this.banner.text = this.songStatus.range;
+        console.log(this.songStatus.range);
+        this.songStatus.status = 'done'
+        console.log("!!!!!!!")
+      }
+    }
+
   }
 
   _createTitle(text) {
-    let banner;
-    banner = this.add.text(this.world.centerX, this.world.centerY, text)
-    banner.font = 'Bangers'
-    banner.padding.set(10, 16)
-    banner.fontSize = 40
-    banner.fill = '#77BFA3'
-    banner.smoothed = false
-    banner.anchor.setTo(0.5)
+    this.banner;
+    this.banner = this.add.text(this.world.centerX, this.world.centerY, text)
+    this.banner.font = 'Bangers'
+    this.banner.padding.set(10, 16)
+    this.banner.fontSize = 40
+    this.banner.fill = '#77BFA3'
+    this.banner.smoothed = false
+    this.banner.anchor.setTo(0.5)
   }
 
-  _checkRange(sprite, hubSprite, range, name) {
+  _checkRange(sprite, hubSprite, range, name, callback) {
     let boundsSprite = sprite.getBounds();
     let boundsHubSprite= hubSprite.getBounds();
 
@@ -68,17 +98,18 @@ export default class Game extends Phaser.State {
     }
 
     if(centerHub.y - range == centerSprite.y) {
-      console.log(name);
+      this.songStatus.range = name;
+      this.songStatus.note = sprite.data;
     }
   }
 
   _check(sprite, hubSprite) {
-    //this._checkGood(sprite, hubSprite);
-    this._checkRange(sprite, hubSprite, 8, 'bad');
-    this._checkRange(sprite, hubSprite, 6, 'good');
-    this._checkRange(sprite, hubSprite, 0, 'perfect');
-    this._checkRange(sprite, hubSprite, -6, 'good');
-    this._checkRange(sprite, hubSprite, -8, 'bad');
+    this._checkRange(sprite, hubSprite, 10, 'bad');
+    this._checkRange(sprite, hubSprite, 8, 'good');
+    this._checkRange(sprite, hubSprite, 3, 'perfect');
+    this._checkRange(sprite, hubSprite, -8, 'good');
+    this._checkRange(sprite, hubSprite, -10, 'bad');
+    this._checkRange(sprite, hubSprite, -11, 'missed');
   }
 
   render () {
