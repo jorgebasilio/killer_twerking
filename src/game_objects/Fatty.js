@@ -6,29 +6,18 @@ import RightCheek from './Cheek'
 export default class Fatty extends Phaser.Group {
   constructor({game, parent, name, addToStage, enableBody, physicsBodyType}) {
     super(game, parent, name, addToStage, enableBody, physicsBodyType);
-    this._createBackground();
-    //this._createSprites();
+    this._createSprites();
   }
 
   _createSprites() {
-    this.leftCheek = new Phaser.Sprite(game, 20, 10, 'mushroom');
-    this.add(this.hudLeft);
+    this.fattyBody = new Phaser.Sprite(game, this.game.world.centerX-80, 80, 'fatty');
+    this.add(this.fattyBody);
 
-    this.hudMiddle = new Phaser.Sprite(game, 120, 10, 'mushroom');
-    this.add(this.hudMiddle);
+    this.leftCheek = new Phaser.Sprite(game, this.game.world.centerX-80, this.game.world.centerY-60, 'left_cheek');
+    this.add(this.leftCheek);
 
-    this.hudRight = new Phaser.Sprite(game, 220, 10, 'mushroom');
-    this.add(this.hudRight);
-  }
-
-  _createBackground() {
-    let fattyBody, leftCheek, rightCheek;
-    fattyBody = new Row(game, this.game.world.centerX-80, 50, 300, 500, 0x712871);
-    this.add(fattyBody);
-    leftCheek = new Row(game, this.game.world.centerX-180, this.game.world.centerY-50, 250, 250, 0x712871);
-    this.add(leftCheek);
-    rightCheek = new Row(game, this.game.world.centerX+80, this.game.world.centerY-50, 250, 250, 0x712871);
-    this.add(rightCheek);
+    this.rightCheek = new Phaser.Sprite(game, this.game.world.centerX+160, this.game.world.centerY-50, 'right_cheek');
+    this.add(this.rightCheek);
   }
 
   _spriteByNote(note) {

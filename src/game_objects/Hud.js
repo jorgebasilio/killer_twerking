@@ -9,19 +9,24 @@ export default class Hud extends Phaser.Group {
   }
 
   _createSprites() {
-    this.hudLeft = new Phaser.Sprite(game, 20, 10, 'mushroom');
+    this.hudLeft = new Phaser.Sprite(game, 50, 45, 'arrow');
+    this.hudLeft.anchor.setTo(0.5);
+    this.hudLeft.angle = -90;
     this.add(this.hudLeft);
 
-    this.hudMiddle = new Phaser.Sprite(game, 120, 10, 'mushroom');
+    this.hudMiddle = new Phaser.Sprite(game, 175, 45, 'cheeks');
+    this.hudMiddle.anchor.setTo(0.5);
     this.add(this.hudMiddle);
 
-    this.hudRight = new Phaser.Sprite(game, 220, 10, 'mushroom');
+    this.hudRight = new Phaser.Sprite(game, 300, 45, 'arrow');
+    this.hudRight.anchor.setTo(0.5);
+    this.hudRight.angle = 90;
     this.add(this.hudRight);
   }
 
   _createBackground() {
     let graphics;
-    graphics = new Row(game, 0, 0, 300, 80, 0x712871);
+    graphics = new Row(game, 0, 0, 350, 90, 0x712871);
     graphics.alpha = 0.5;
     this.add(graphics);
   }

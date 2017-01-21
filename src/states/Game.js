@@ -8,12 +8,22 @@ export default class Game extends Phaser.State {
   init () {}
   preload () {
     this.load.image('mushroom', './assets/images/mushroom2.png');
+    this.load.image('beach', './assets/images/background.png');
+    this.load.image('fatty', './assets/images/bodilicious.png');
+    this.load.image('left_cheek', './assets/images/nalga_l.png');
+    this.load.image('right_cheek', './assets/images/nalga_r.png');
+
+    this.load.image('arrow', './assets/images/flecha.png');
+    this.load.image('cheeks', './assets/images/nalgas.png');
   }
 
   create () {
     let  factory;
     let currentSong;
     let fatty;
+
+    this.game.add.sprite(0, 0, 'beach');
+
     factory = new SongFactory(this.game);
 
     currentSong = factory.songs[0];
