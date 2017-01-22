@@ -94,6 +94,16 @@ export default class Game extends Phaser.State {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
     //console.log(this.fatty.leftCheek);
+    this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.spaceKey.onDown.add(() => { 
+      if(this.game.paused) {
+        this.game.paused = false;
+        this.song.resume();
+      } else {
+        this.game.paused = true;
+        this.song.pause();
+      }
+    }, this);
   }
 
   _checkInput(key, symbol) {
@@ -117,6 +127,7 @@ export default class Game extends Phaser.State {
             this.rc.y -= 15;
             break;
           case 'n':
+          if (this.songStatus.range == 'perfect') this.game.camera.shake(0.005, 200);
             this.lc.y -= 15;
             this.rc.y -= 15;
             break;
