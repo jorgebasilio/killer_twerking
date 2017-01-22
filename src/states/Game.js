@@ -67,6 +67,9 @@ export default class Game extends Phaser.State {
       let hudSprite;
       hudSprite = this.hud._spriteByNote(sprite.data);
       this._check(sprite, hudSprite);
+    } else {
+      this.banner.text = 'FIN DE CANCIÓN';
+      //this.state.start('Boot');
     }
 
     this._checkInput(this.cursors.left, 'l');
@@ -99,7 +102,7 @@ export default class Game extends Phaser.State {
       y: (boundsSprite.height - boundsSprite.y) / 2
     }
 
-    if(centerHub.y - range == centerSprite.y || centerHub.y - range < centerSprite.y) {
+    if(centerHub.y - range < centerSprite.y) {
       this.songStatus.range = name;
       this.songStatus.note = sprite.data;
       if (callback) callback();
@@ -112,10 +115,10 @@ export default class Game extends Phaser.State {
         this.score += 1;
         break;
       case 'good':
-        this.score += 1;
+        this.score += 2;
         break;
       case 'perfect':
-        this.score += 2;
+        this.score += 3;
         break;
       default:
         console.log(this.score);
