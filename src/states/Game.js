@@ -19,6 +19,8 @@ export default class Game extends Phaser.State {
 
     this.load.image('arrow', './assets/images/flecha.png');
     this.load.image('cheeks', './assets/images/nalgas.png');
+    this.load.image('sea_frontlevel', './assets/images/sea_frontlevel.png');
+    this.load.image('waves', './assets/images/waves_1.png');
 
     this.load.spritesheet('people', './assets/images/people.png', 937, 260, 2);
     this.load.spritesheet('instructor', './assets/images/instructor.png', 152, 192, 2);
@@ -36,6 +38,8 @@ export default class Game extends Phaser.State {
     let instructor;
     let sea;
     let gui_channel;
+    let sea_frontlevel;
+    let waves;
 
     this.claped = false;
 
@@ -63,9 +67,12 @@ export default class Game extends Phaser.State {
     instructor.animations.play('dance', 5, true)
     instructor.anchor.setTo(0.5);
 
-    sea = this.game.add.sprite(0, this.game.world.height - 700, 'sea');
+    sea = this.game.add.sprite(0, this.game.world.height - 780, 'sea');
     sea.animations.add('move')
     sea.animations.play('move', 3, true)
+
+    sea_frontlevel = this.game.add.sprite(0, this.game.world.height - 100, 'sea_frontlevel');
+    //waves = this.game.add.sprite(0, this.game.world.height - 100, 'waves');
 
     gui_channel = this.game.add.sprite(0, 90, 'gui_channel');
     gui_channel.width = 350;
@@ -155,7 +162,7 @@ export default class Game extends Phaser.State {
       this.song.volume = this.song.volume * 0.95;
       game.time.events.add(1300, () =>{
         this.song.stop();
-        this.state.start('Finish');
+        this.state.start('Finish', true, false, this.score);
       });
     }
 

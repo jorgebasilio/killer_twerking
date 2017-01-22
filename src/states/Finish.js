@@ -1,18 +1,19 @@
 import Phaser from 'phaser'
 
 export default class Finish extends Phaser.State {
-  init () {}
+  init (score) {
+    this.score = score;
+  }
   preload () {}
 
   create () {
-    const bannerText = 'Fin de Juego!!'
-    let banner = this.add.text(this.world.centerX, 100, bannerText)
-    banner.font = 'Bangers'
-    banner.padding.set(10, 16)
-    banner.fontSize = 40
-    banner.fill = '#77BFA3'
-    banner.smoothed = false
-    banner.anchor.setTo(0.5)
+    this.banner = this.add.text(this.world.centerX, 100, `Score: ${this.score}`)
+    this.banner.font = 'Bangers'
+    this.banner.padding.set(10, 16)
+    this.banner.fontSize = 40
+    this.banner.fill = '#77BFA3'
+    this.banner.smoothed = false
+    this.banner.anchor.setTo(0.5)
     let start = this.add.text(this.world.centerX, 200, 'Reiniciar?')
     start.anchor.setTo(0.5)
     start.inputEnabled = true
