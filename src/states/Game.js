@@ -16,15 +16,27 @@ export default class Game extends Phaser.State {
 
     this.load.image('arrow', './assets/images/flecha.png');
     this.load.image('cheeks', './assets/images/nalgas.png');
+
+    this.load.image('people', './assets/images/people_a.png');
+    this.load.image('mentor', './assets/images/instructor_a.png');
   }
 
   create () {
     let  factory;
     let currentSong;
     let fatty;
+    let people;
+    let mentor;
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 600;
     this.game.add.sprite(0, 0, 'beach');
+
+    people = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'people');
+    people.anchor.setTo(0.5);
+
+    mentor = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 200, 'mentor');
+    mentor.anchor.setTo(0.5);
 
     factory = new SongFactory(this.game);
 
@@ -36,17 +48,17 @@ export default class Game extends Phaser.State {
     this.hud = new Hud({game:this.game});
     this.game.add.group(this.hud);
     this.ldr = this.game.add.sprite(this.game.world.centerX,this.game.world.height - 70, 'loaderBar');
-    this.fatty = new Fatty({game:this.game});    
+    this.fatty = new Fatty({game:this.game});
     this.game.add.group(this.fatty);
 
     this.lc = this.game.add.sprite(this.game.world.centerX-80, this.game.world.centerY-60, 'left_cheek');
     this.rc = this.game.add.sprite(this.game.world.centerX+160, this.game.world.centerY-60, 'right_cheek');
     this.game.physics.arcade.enable([this.lc,this.ldr,this.rc]);
-    this.ldr.body.allowGravity = false;    
-    this.lc.body.bounce.y = 0.7;    
-    this.rc.body.bounce.y = 0.7;    
+    this.ldr.body.allowGravity = false;
+    this.lc.body.bounce.y = 0.7;
+    this.rc.body.bounce.y = 0.7;
     this.ldr.body.immovable = true;
-    // this.ldr.alpha = 0;    
+    // this.ldr.alpha = 0;
     this.lc.body.collideWorldBounds = true;
     this.rc.body.collideWorldBounds = true;
     console.log(this.ldr);

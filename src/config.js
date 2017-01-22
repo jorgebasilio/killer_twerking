@@ -1,5 +1,5 @@
 export default {
-  gameWidth: 1100,
+  gameWidth: 1270,
   gameHeight: 600,
   localStorageName: 'killerTwerking',
   rowSize: 10,
