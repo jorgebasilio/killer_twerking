@@ -9,6 +9,7 @@ import MenuState from './states/Menu'
 import IntroState from './states/Intro'
 import CreditsState from './states/Credits'
 import FinishState from './states/Finish'
+import AutroState from './states/Autro'
 
 import config from './config'
 
@@ -28,6 +29,7 @@ class Game extends Phaser.Game {
     this.state.add('Intro', IntroState, false)
     this.state.add('Credits', CreditsState, false)
     this.state.add('Finish', FinishState, false)
+    this.state.add('Autro', AutroState, false)
 
     this.state.start('Boot')
   }

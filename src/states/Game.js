@@ -162,7 +162,7 @@ export default class Game extends Phaser.State {
       this.song.volume = this.song.volume * 0.95;
       game.time.events.add(1300, () =>{
         this.song.stop();
-        this.state.start('Finish', true, false, this.score);
+        this.state.start('Autro', true, false, this.score);
       });
     }
 
