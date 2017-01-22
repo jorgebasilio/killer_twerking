@@ -40,10 +40,10 @@ export default class SongRow extends Phaser.Group {
   }
 
   _createBackground() {
-    let graphics;
-    graphics = new Row(game, 0, this._setHeight(), 350, 90, 0x272891);
-    graphics.alpha = 0.2;
-    this.add(graphics);
+    // let graphics;
+    // graphics = new Row(game, 0, this._setHeight(), 350, 90, 0x272891);
+    // graphics.alpha = 0.2;
+    // this.add(graphics);
   }
 
 }

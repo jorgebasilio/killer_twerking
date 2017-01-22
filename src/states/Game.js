@@ -14,11 +14,15 @@ export default class Game extends Phaser.State {
     this.load.image('right_cheek', './assets/images/nalga_r.png');
     this.load.image('loaderBar', './assets/images/loader-bar.png')
 
+    this.load.image('gui_hud', './assets/images/gui_hud.png');
+    this.load.image('gui_channel', './assets/images/gui_channel.png');
+
     this.load.image('arrow', './assets/images/flecha.png');
     this.load.image('cheeks', './assets/images/nalgas.png');
 
     this.load.image('people', './assets/images/people_a.png');
     this.load.image('mentor', './assets/images/instructor_a.png');
+    this.load.image('sea', './assets/images/sea.gif');
 
     this.load.audio('clap', 'assets/sounds/clap.wav');
     this.load.audio('song', 'assets/sounds/song2.mp3');
@@ -30,6 +34,8 @@ export default class Game extends Phaser.State {
     let fatty;
     let people;
     let mentor;
+    let sea;
+    let gui_channel;
 
     this.claped = false;
 
@@ -48,6 +54,13 @@ export default class Game extends Phaser.State {
 
     mentor = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 200, 'mentor');
     mentor.anchor.setTo(0.5);
+
+    sea = this.game.add.sprite(0, this.game.world.height - 700, 'sea');
+    //mentor.anchor.setTo(0.5);
+
+    gui_channel = this.game.add.sprite(0, 90, 'gui_channel');
+    gui_channel.width = 350;
+    gui_channel.height = this.game.world.height - 90;
 
     factory = new SongFactory(this.game);
 
@@ -164,7 +177,7 @@ export default class Game extends Phaser.State {
 
     if(centerHub.y - range < centerSprite.y) {
       if(this.songStatus.range == 'perfect' && !this.claped) {
-        this.clap.play();
+        //this.clap.play();
         this.claped = true;
       }
       this.songStatus.range = name;
