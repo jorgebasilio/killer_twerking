@@ -20,8 +20,8 @@ export default class Game extends Phaser.State {
     this.load.image('arrow', './assets/images/flecha.png');
     this.load.image('cheeks', './assets/images/nalgas.png');
 
-    this.load.image('people', './assets/images/people_a.png');
-    this.load.image('mentor', './assets/images/instructor_a.png');
+    this.load.spritesheet('people', './assets/images/people.png', 937, 260, 2);
+    this.load.spritesheet('instructor', './assets/images/instructor.png', 152, 192, 2);
     this.load.image('sea', './assets/images/sea.gif');
 
     this.load.audio('clap', 'assets/sounds/clap.wav');
@@ -33,7 +33,7 @@ export default class Game extends Phaser.State {
     let currentSong;
     let fatty;
     let people;
-    let mentor;
+    let instructor;
     let sea;
     let gui_channel;
 
@@ -54,13 +54,17 @@ export default class Game extends Phaser.State {
     // this.clap.addMarker('clap', 0, 0.5);
 
     people = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'people');
+    people.animations.add('dance')
+    people.animations.play('dance', 5, true)
     people.anchor.setTo(0.5);
 
-    mentor = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 200, 'mentor');
-    mentor.anchor.setTo(0.5);
+    instructor = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 200, 'instructor');
+    instructor.animations.add('dance')
+    instructor.animations.play('dance', 5, true)
+    instructor.anchor.setTo(0.5);
 
     sea = this.game.add.sprite(0, this.game.world.height - 700, 'sea');
-    //mentor.anchor.setTo(0.5);
+    //instructor.anchor.setTo(0.5);
 
     gui_channel = this.game.add.sprite(0, 90, 'gui_channel');
     gui_channel.width = 350;
