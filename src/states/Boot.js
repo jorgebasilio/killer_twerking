@@ -44,6 +44,7 @@ export default class Boot extends Phaser.State {
     this.load.audio('finalSound', 'assets/sounds/final.mp3');
     this.load.audio('introSound', 'assets/sounds/intro.mp3');
     this.load.audio('menuSound', 'assets/sounds/menu.mp3');
+    this.load.audio('waveSound', 'assets/sounds/Wave.mp3');
     this.load.image('start_screen', './assets/images/start_screen.png');
     this.load.image('start_button', './assets/images/start_button.png');
     this.load.image('credits_button', './assets/images/credits_button.png');

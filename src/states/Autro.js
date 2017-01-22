@@ -9,6 +9,9 @@ export default class extends Phaser.State {
 
   create () {
     let end;
+    this.song = game.add.audio('waveSound');
+    this.song.loop = true
+    this.song.play()
     end = this.game.add.sprite(0, 0, 'end');
     end.scale.setTo(0.78, 0.78);
     end.animations.add('move')
@@ -17,6 +20,7 @@ export default class extends Phaser.State {
   }
 
   timed (){
+    this.song.stop()
     this.state.start('Finish', true, false, this.score)
   }
   render () {
