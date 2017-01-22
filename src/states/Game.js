@@ -25,7 +25,7 @@ export default class Game extends Phaser.State {
     this.load.image('sea', './assets/images/sea.gif');
 
     this.load.audio('clap', 'assets/sounds/clap.wav');
-    this.load.audio('song', 'assets/sounds/song2.mp3');
+    this.load.audio('song', 'assets/sounds/song.mp3');
   }
 
   create () {
@@ -45,7 +45,11 @@ export default class Game extends Phaser.State {
 
     this.clap = game.add.audio('clap');
     this.song = game.add.audio('song');
-    this.song.play();
+    this.song.onDecoded.add(() => {
+      this.song.fadeIn(3000)
+    }, this);
+
+    //this.song.play();
     // this.clap.allowMultiple = true;
     // this.clap.addMarker('clap', 0, 0.5);
 
@@ -94,7 +98,8 @@ export default class Game extends Phaser.State {
       note: null,
       status: null
     }
-    this._createTitle('Killer Twerking');
+    this._createTitle('');
+    this._createScore(0);
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
     //console.log(this.fatty.leftCheek);
@@ -135,14 +140,18 @@ export default class Game extends Phaser.State {
   update() {
     this.game.physics.arcade.collide([this.lc,this.rc], this.ldr)
     let sprite = this.noteSprites[0];
+
     if(sprite) {
       let hudSprite;
       hudSprite = this.hud._spriteByNote(sprite.data);
       this._check(sprite, hudSprite);
     } else {
-      this.song.fadeIn(2000);
-      this.banner.text = 'FIN DE CANCIÓN';
-      this.state.start('Finish');
+      console.log('VOLUMEN!',this.song.volume);
+      this.song.volume = this.song.volume * 0.95;
+      game.time.events.add(1300, () =>{
+        this.song.stop();
+        this.state.start('Finish');
+      });
     }
 
     this._checkInput(this.cursors.left, 'l');
@@ -150,13 +159,26 @@ export default class Game extends Phaser.State {
     this._checkInput(this.cursors.down, 'n');
   }
 
+  _createScore(score) {
+    this.scoreText;
+    this.scoreText = this.add.text(this.world.width - 100, 50, `Score: ${score}`)
+    this.scoreText.font = 'Bangers'
+    this.scoreText.padding.set(10, 16)
+    this.scoreText.fontSize = 30
+    this.scoreText.fill = '#DDD'
+    this.scoreText.strokeThickness = 1
+    this.scoreText.smoothed = false
+    this.scoreText.anchor.setTo(0.5)
+  }
+
   _createTitle(text) {
     this.banner;
-    this.banner = this.add.text(this.world.centerX, this.world.centerY, text)
+    this.banner = this.add.text(180, this.world.centerY - 50, text)
     this.banner.font = 'Bangers'
     this.banner.padding.set(10, 16)
-    this.banner.fontSize = 40
-    this.banner.fill = '#77BFA3'
+    this.banner.fontSize = 70
+    this.banner.fill = '#E37F26'
+    this.banner.strokeThickness = 3
     this.banner.smoothed = false
     this.banner.anchor.setTo(0.5)
   }
@@ -177,7 +199,7 @@ export default class Game extends Phaser.State {
 
     if(centerHub.y - range < centerSprite.y) {
       if(this.songStatus.range == 'perfect' && !this.claped) {
-        //this.clap.play();
+        this.clap.play();
         this.claped = true;
       }
       this.songStatus.range = name;
@@ -204,6 +226,7 @@ export default class Game extends Phaser.State {
       default:
         console.log(this.score);
     }
+    this.scoreText.text = `Score: ${this.score}`;
     console.log(this.score);
     console.log(name);
   }
