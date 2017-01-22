@@ -7,27 +7,6 @@ import Fatty from '../game_objects/Fatty'
 export default class Game extends Phaser.State {
   init () {}
   preload () {
-    this.load.image('mushroom', './assets/images/mushroom2.png');
-    this.load.image('beach', './assets/images/background.png');
-    this.load.image('fatty', './assets/images/bodilicious.png');
-    this.load.image('left_cheek', './assets/images/nalga_l.png');
-    this.load.image('right_cheek', './assets/images/nalga_r.png');
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
-
-    this.load.image('gui_hud', './assets/images/gui_hud.png');
-    this.load.image('gui_channel', './assets/images/gui_channel.png');
-
-    this.load.image('arrow', './assets/images/flecha.png');
-    this.load.image('cheeks', './assets/images/nalgas.png');
-    this.load.image('sea_frontlevel', './assets/images/sea_frontlevel.png');
-    this.load.image('waves', './assets/images/waves_1.png');
-
-    this.load.spritesheet('people', './assets/images/people.png', 937, 260, 2);
-    this.load.spritesheet('instructor', './assets/images/instructor.png', 152, 192, 2);
-    this.load.spritesheet('sea', './assets/images/sea.png', 1366, 768, 3);
-
-    this.load.audio('clap', 'assets/sounds/clap.wav');
-    this.load.audio('song', 'assets/sounds/song.mp3');
   }
 
   create () {
@@ -115,6 +94,16 @@ export default class Game extends Phaser.State {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
     //console.log(this.fatty.leftCheek);
+    this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.spaceKey.onDown.add(() => { 
+      if(this.game.paused) {
+        this.game.paused = false;
+        this.song.resume();
+      } else {
+        this.game.paused = true;
+        this.song.pause();
+      }
+    }, this);
   }
 
   _checkInput(key, symbol) {
@@ -138,6 +127,7 @@ export default class Game extends Phaser.State {
             this.rc.y -= 15;
             break;
           case 'n':
+          if (this.songStatus.range == 'perfect') this.game.camera.shake(0.005, 200);
             this.lc.y -= 15;
             this.rc.y -= 15;
             break;

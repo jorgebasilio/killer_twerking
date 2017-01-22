@@ -3,9 +3,7 @@ import Phaser from 'phaser'
 export default class extends Phaser.State {
   init () {}
   preload () {
-    this.load.image('start_screen', './assets/images/start_screen.png');
-    this.load.image('start_button', './assets/images/start_button.png');
-    this.load.image('credits_button', './assets/images/credits_button.png');
+
   }
 
   create () {

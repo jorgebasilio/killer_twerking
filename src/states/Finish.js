@@ -5,9 +5,6 @@ export default class Finish extends Phaser.State {
     this.score = score;
   }
   preload () {
-    this.load.image('end_screen', './assets/images/end_screen.png');
-    this.load.image('retry_button', './assets/images/retry.png');
-    this.load.image('credits_button', './assets/images/credits_button.png');
   }
 
   create () {

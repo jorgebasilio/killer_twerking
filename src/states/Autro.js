@@ -5,7 +5,6 @@ export default class extends Phaser.State {
     this.score = score
   }
   preload () {
-    this.load.spritesheet('end', './assets/images/end.png', 1366, 768, 5);
   }
 
   create () {
