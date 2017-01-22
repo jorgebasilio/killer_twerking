@@ -1,4 +1,3 @@
-import Phaser from 'phaser'
 import config from '../config'
 import Song from '../game_objects/Song'
 
@@ -8,12 +7,15 @@ export default class SongFactory {
     this.songs = config.songs.map((song, index) => {
       return new Song(song, {game:this.game});
     });
-    this._addToGame();
   }
 
-  _addToGame() {
-    for (let song of this.songs) {
-      this.game.add.group(song);
-    }
+  _startSong(song) {
+    this.game.add.group(song);
+  }
+
+  _sprites(song) {
+    return song.songRows.map((songRow, index) => {
+      return songRow.sprite;
+    })
   }
 }

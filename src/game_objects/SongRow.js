@@ -5,42 +5,45 @@ import Row from './Row'
 
 export default class SongRow extends Phaser.Group {
 
-  constructor(note, index, {game, parent, name, addToStage, enableBody, physicsBodyType}) {
+  constructor(note, index, marginTop, {game, parent, name, addToStage, enableBody, physicsBodyType}) {
     super(game, parent, name, addToStage, enableBody, physicsBodyType);
+
     this.note = note;
     this.index = index;
-    this._defaultValues();
+    this.marginTop = marginTop
+
     this._createBackground();
     this._createSprite();
   }
 
-  _defaultValues() {
-    this.width = 400;
-    this.height = 150;
-  }
-
   _createSprite() {
-    let { note, sprite } = this;
-    if(note) {
-      if(note.symbol == 'l') {
-        sprite = new Phaser.Sprite(game, 20, this._setHeight(), 'mushroom');
-      } else if(note.symbol == 'r') {
-        sprite = new Phaser.Sprite(game, 120, this._setHeight(), 'mushroom');
-      } else if(note.symbol == 'n') {
-        sprite = new Phaser.Sprite(game, 220, this._setHeight(), 'mushroom');
+    if(this.note) {
+      if(this.note.symbol == 'l') {
+        this.sprite = new Phaser.Sprite(game, 50, this._setHeight() + 45, 'arrow');
+        this.sprite.anchor.setTo(0.5);
+        this.sprite.angle = -90;
+      } else if(this.note.symbol == 'r') {
+        this.sprite = new Phaser.Sprite(game, 300, this._setHeight() + 45, 'arrow');
+        this.sprite.anchor.setTo(0.5);
+        this.sprite.angle = 90;
+      } else if(this.note.symbol == 'n') {
+        this.sprite = new Phaser.Sprite(game, 175, this._setHeight() + 45, 'cheeks');
+        this.sprite.anchor.setTo(0.5);
       }
-      this.add(sprite);
+      this.sprite.data = this.note;
+      this.add(this.sprite);
     }
   }
 
   _setHeight() {
-    return this.index*80
+    return (this.index*90) + this.marginTop;
   }
 
   _createBackground() {
-    let graphics;
-    graphics = new Row(game, 0, this._setHeight(), 300, 80, 0x028231);
-    this.add(graphics);
+    // let graphics;
+    // graphics = new Row(game, 0, this._setHeight(), 350, 90, 0x272891);
+    // graphics.alpha = 0.2;
+    // this.add(graphics);
   }
 
 }
