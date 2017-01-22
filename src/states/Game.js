@@ -116,7 +116,15 @@ export default class Game extends Phaser.State {
     this.cursors = this.game.input.keyboard.createCursorKeys();
     //console.log(this.fatty.leftCheek);
     this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    this.spaceKey.onDown.add(() => { this.game.paused = !this.game.paused; }, self);
+    this.spaceKey.onDown.add(() => { 
+      if(this.game.paused) {
+        this.game.paused = false;
+        this.song.resume();
+      } else {
+        this.game.paused = true;
+        this.song.pause();
+      }
+    }, this);
   }
 
   _checkInput(key, symbol) {
