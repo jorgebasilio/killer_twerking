@@ -8,6 +8,8 @@ export default class extends Phaser.State {
   }
 
   create () {
+    this.song = game.add.audio('introSound');
+    this.song.play()
     this.current = 3
     this.intro1 = this.game.add.sprite(game.world.centerX, game.world.centerY, 'intro1');
     this.intro1.anchor.setTo(0.5, 0.5);
@@ -70,6 +72,7 @@ export default class extends Phaser.State {
   }
 
   timed (){
+    this.song.stop()
     this.state.start('Game')
   }
   render () {

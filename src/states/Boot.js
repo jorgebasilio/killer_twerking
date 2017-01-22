@@ -40,7 +40,10 @@ export default class Boot extends Phaser.State {
     this.load.image('intro3', './assets/images/intro3.png');
     this.load.image('intro4', './assets/images/intro4.png');
     this.load.image('intro5', './assets/images/intro5.png');
-    this.load.audio('introSound', 'assets/sounds/song.mp3');
+    this.load.audio('song', 'assets/sounds/song.mp3');
+    this.load.audio('finalSound', 'assets/sounds/final.mp3');
+    this.load.audio('introSound', 'assets/sounds/intro.mp3');
+    this.load.audio('menuSound', 'assets/sounds/menu.mp3');
     this.load.image('start_screen', './assets/images/start_screen.png');
     this.load.image('start_button', './assets/images/start_button.png');
     this.load.image('credits_button', './assets/images/credits_button.png');
@@ -51,7 +54,7 @@ export default class Boot extends Phaser.State {
       active: this.fontsLoaded
     })
 
-    let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
+    let text = this.add.text(this.world.centerX, this.world.centerY, 'loading...', { font: '50px Arial', fill: '#000', align: 'center' })
     text.anchor.setTo(0.5, 0.5)
 
     this.load.image('loaderBg', './assets/images/loader-bg.png')
