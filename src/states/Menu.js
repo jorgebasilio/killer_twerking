@@ -10,6 +10,10 @@ export default class extends Phaser.State {
     let startScreen;
     //const bannerText = 'Menu de Killer-Twrk'
 
+    this.song = game.add.audio('menuSound');
+    this.song.loop= true
+    this.song.play()
+
     startScreen = this.game.add.sprite(0, 0, 'start_screen');
     startScreen.width = this.world.width;
     startScreen.height = this.world.height;
@@ -32,6 +36,7 @@ export default class extends Phaser.State {
   }
 
   startOnClick () {
+    this.song.stop()
     this.state.start('Intro')
   }
   creditsOnClick () {

@@ -8,6 +8,9 @@ export default class Finish extends Phaser.State {
   }
 
   create () {
+    this.song = game.add.audio('finalSound');
+    this.song.loop = true
+    this.song.play()
     let endScreen;
 
     endScreen = this.game.add.sprite(0, 0, 'end_screen');
@@ -42,9 +45,11 @@ export default class Finish extends Phaser.State {
   }
 
   retryOnClick () {
+    this.song.stop()
     this.state.start('Game')
   }
   creditsOnClick () {
+    this.song.stop()
     this.state.start('Credits')
   }
   render () {
