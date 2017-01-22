@@ -113,7 +113,7 @@ export default class Game extends Phaser.State {
       this._check(sprite, hudSprite);
     } else {
       this.banner.text = 'FIN DE CANCIÓN';
-      //this.state.start('Boot');
+      this.state.start('Menu');
     }
 
     this._checkInput(this.cursors.left, 'l');
@@ -195,9 +195,10 @@ export default class Game extends Phaser.State {
     });
   }
 
+  menuOnClick(){
+    this.state.start('Menu')
+  }
   render () {
-    // if (__DEV__) {
-    //   this.game.debug.spriteInfo(this.mushroom, 0, 0)
-    // }
+
   }
 }
