@@ -5,6 +5,7 @@ export default class extends Phaser.State {
   preload () {
     this.load.image('start_screen', './assets/images/start_screen.png');
     this.load.image('start_button', './assets/images/start_button.png');
+    this.load.image('credits_button', './assets/images/credits_button.png');
   }
 
   create () {
@@ -23,11 +24,13 @@ export default class extends Phaser.State {
     start.inputEnabled = true
     start.events.onInputUp.add(this.startOnClick, this)
 
-    let credits = this.add.text(this.world.centerX, start.y + start.height + 20, 'Credits')
+    //let credits = this.add.text(this.world.centerX, start.y + start.height + 20, 'Credits')
+    let credits = this.game.add.sprite(this.world.centerX, start.y + start.height + 20, 'credits_button')
     credits.anchor.setTo(0.5)
+    credits.width = 200
+    credits.height = 75
     credits.inputEnabled = true
     credits.events.onInputUp.add(this.creditsOnClick, this)
-
   }
 
   startOnClick () {
