@@ -1,7 +1,9 @@
 import Phaser from 'phaser'
 
 export default class extends Phaser.State {
-  init () {}
+  init (score) {
+    this.score = score
+  }
   preload () {
     this.load.spritesheet('end', './assets/images/end.png', 1366, 768, 5);
   }
@@ -16,7 +18,7 @@ export default class extends Phaser.State {
   }
 
   timed (){
-    this.state.start('Finish')
+    this.state.start('Finish', true, false, this.score)
   }
   render () {
 
