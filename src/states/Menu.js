@@ -15,14 +15,6 @@ export default class extends Phaser.State {
     startScreen.width = this.world.width;
     startScreen.height = this.world.height;
 
-    // let banner = this.add.text(this.world.centerX, 100, bannerText)
-    // banner.font = 'Bangers';
-    // banner.padding.set(10, 16);
-    // banner.fontSize = 40;
-    // banner.fill = '#77BFA3';
-    // banner.smoothed = false;
-    // banner.anchor.setTo(0.5);
-
     //let start = this.add.text(this.world.centerX, this.world.centerY, 'Start Game')
     let start = this.game.add.sprite(this.world.centerX, this.world.centerY + 50, 'start_button');
     start.anchor.setTo(0.5)

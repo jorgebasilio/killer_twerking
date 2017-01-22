@@ -203,7 +203,7 @@ export default class Game extends Phaser.State {
 
     if(centerHub.y - range < centerSprite.y) {
       if(this.songStatus.range == 'perfect' && !this.claped) {
-        this.clap.play();
+        //this.clap.play();
         this.claped = true;
       }
       this.songStatus.range = name;
