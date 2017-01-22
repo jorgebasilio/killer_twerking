@@ -22,7 +22,7 @@ export default class Game extends Phaser.State {
 
     this.load.spritesheet('people', './assets/images/people.png', 937, 260, 2);
     this.load.spritesheet('instructor', './assets/images/instructor.png', 152, 192, 2);
-    this.load.image('sea', './assets/images/sea.gif');
+    this.load.spritesheet('sea', './assets/images/sea.png', 1366, 768, 3);
 
     this.load.audio('clap', 'assets/sounds/clap.wav');
     this.load.audio('song', 'assets/sounds/song.mp3');
@@ -60,7 +60,8 @@ export default class Game extends Phaser.State {
     instructor.anchor.setTo(0.5);
 
     sea = this.game.add.sprite(0, this.game.world.height - 700, 'sea');
-    //instructor.anchor.setTo(0.5);
+    sea.animations.add('move')
+    sea.animations.play('move', 3, true)
 
     gui_channel = this.game.add.sprite(0, 90, 'gui_channel');
     gui_channel.width = 350;
