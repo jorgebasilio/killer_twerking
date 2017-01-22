@@ -9,7 +9,7 @@ export default class Song extends Phaser.Group {
   }
 
   update(){
-    this.y -= 4;
+    this.y -= 5;
   }
 
   _addToSong() {

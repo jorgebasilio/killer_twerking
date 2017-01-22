@@ -99,7 +99,7 @@ export default class Game extends Phaser.State {
       y: (boundsSprite.height - boundsSprite.y) / 2
     }
 
-    if(centerHub.y - range == centerSprite.y) {
+    if(centerHub.y - range == centerSprite.y || centerHub.y - range < centerSprite.y) {
       this.songStatus.range = name;
       this.songStatus.note = sprite.data;
       if (callback) callback();

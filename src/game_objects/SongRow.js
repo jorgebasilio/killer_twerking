@@ -19,11 +19,11 @@ export default class SongRow extends Phaser.Group {
   _createSprite() {
     if(this.note) {
       if(this.note.symbol == 'l') {
-        this.sprite = new Phaser.Sprite(game, 50, this._setHeight() + 40, 'arrow');
+        this.sprite = new Phaser.Sprite(game, 50, this._setHeight() + 45, 'arrow');
         this.sprite.anchor.setTo(0.5);
         this.sprite.angle = -90;
       } else if(this.note.symbol == 'r') {
-        this.sprite = new Phaser.Sprite(game, 300, this._setHeight() + 40, 'arrow');
+        this.sprite = new Phaser.Sprite(game, 300, this._setHeight() + 45, 'arrow');
         this.sprite.anchor.setTo(0.5);
         this.sprite.angle = 90;
       } else if(this.note.symbol == 'n') {
