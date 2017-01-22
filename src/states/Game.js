@@ -12,6 +12,7 @@ export default class Game extends Phaser.State {
     this.load.image('fatty', './assets/images/bodilicious.png');
     this.load.image('left_cheek', './assets/images/nalga_l.png');
     this.load.image('right_cheek', './assets/images/nalga_r.png');
+    this.load.image('loaderBar', './assets/images/loader-bar.png')
 
     this.load.image('arrow', './assets/images/flecha.png');
     this.load.image('cheeks', './assets/images/nalgas.png');
@@ -21,7 +22,8 @@ export default class Game extends Phaser.State {
     let  factory;
     let currentSong;
     let fatty;
-
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.physics.arcade.gravity.y = 600;
     this.game.add.sprite(0, 0, 'beach');
 
     factory = new SongFactory(this.game);
@@ -33,8 +35,21 @@ export default class Game extends Phaser.State {
     this.score = 0;
     this.hud = new Hud({game:this.game});
     this.game.add.group(this.hud);
-    this.fatty = new Fatty({game:this.game});
+    this.ldr = this.game.add.sprite(this.game.world.centerX,this.game.world.height - 70, 'loaderBar');
+    this.fatty = new Fatty({game:this.game});    
     this.game.add.group(this.fatty);
+
+    this.lc = this.game.add.sprite(this.game.world.centerX-80, this.game.world.centerY-60, 'left_cheek');
+    this.rc = this.game.add.sprite(this.game.world.centerX+160, this.game.world.centerY-60, 'right_cheek');
+    this.game.physics.arcade.enable([this.lc,this.ldr,this.rc]);
+    this.ldr.body.allowGravity = false;    
+    this.lc.body.bounce.y = 0.7;    
+    this.rc.body.bounce.y = 0.7;    
+    this.ldr.body.immovable = true;
+    // this.ldr.alpha = 0;    
+    this.lc.body.collideWorldBounds = true;
+    this.rc.body.collideWorldBounds = true;
+    console.log(this.ldr);
 
     this.lastIndex = 0;
     this.songStatus = {
@@ -46,6 +61,7 @@ export default class Game extends Phaser.State {
     this._createTitle('Killer Twerking');
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
+    //console.log(this.fatty.leftCheek);
   }
 
   _checkInput(key, symbol) {
@@ -55,6 +71,21 @@ export default class Game extends Phaser.State {
         this.banner.text = this.songStatus.range;
         this.songStatus.status = 'done';
         this._updateScore(this.songStatus.range);
+        switch(symbol){
+          case 'l':
+            console.log('Switch')
+            this.lc.y -= 15;
+            //this._moveLeftCheek
+            break;
+          case 'r':
+            this.rc.y -= 15;
+            break;
+          case 'n':
+            this.lc.y -= 15;
+            this.rc.y -= 15;
+            break;
+          default:
+        }
         //console.log(this.songStatus.range);
         //console.log("!!!!!!!")
       }
@@ -62,6 +93,7 @@ export default class Game extends Phaser.State {
   }
 
   update() {
+    this.game.physics.arcade.collide([this.lc,this.rc], this.ldr)
     let sprite = this.noteSprites[0];
     if(sprite) {
       let hudSprite;
@@ -108,7 +140,11 @@ export default class Game extends Phaser.State {
       if (callback) callback();
     }
   }
-
+  _moveLeftCheek(){
+    this.fatty.set(this.fatty.leftCheek,'y',5,false,false,1);
+    console.log('Hola')
+    //setTimeout(this.fatty.set(this.fatty.leftCheek,'y',5,false,false,2), 500);
+  }
   _updateScore(name){
     switch(name){
       case 'bad':
