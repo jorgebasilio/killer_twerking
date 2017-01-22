@@ -19,6 +19,9 @@ export default class Game extends Phaser.State {
 
     this.load.image('people', './assets/images/people_a.png');
     this.load.image('mentor', './assets/images/instructor_a.png');
+
+    this.load.audio('clap', 'assets/sounds/clap.wav');
+    this.load.audio('song', 'assets/sounds/song2.mp3');
   }
 
   create () {
@@ -28,9 +31,17 @@ export default class Game extends Phaser.State {
     let people;
     let mentor;
 
+    this.claped = false;
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 600;
     this.game.add.sprite(0, 0, 'beach');
+
+    this.clap = game.add.audio('clap');
+    this.song = game.add.audio('song');
+    this.song.play();
+    // this.clap.allowMultiple = true;
+    // this.clap.addMarker('clap', 0, 0.5);
 
     people = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'people');
     people.anchor.setTo(0.5);
@@ -80,6 +91,10 @@ export default class Game extends Phaser.State {
     if (key.isDown) {
       if(this.songStatus.note && this.songStatus.note.symbol == symbol && this.songStatus.status != 'done') {
         //console.log("!!!!!!!")
+
+        // if(this.songStatus.range == 'perfect') {
+        //   this.clap.play();
+        // }
         this.banner.text = this.songStatus.range;
         this.songStatus.status = 'done';
         this._updateScore(this.songStatus.range);
@@ -112,8 +127,9 @@ export default class Game extends Phaser.State {
       hudSprite = this.hud._spriteByNote(sprite.data);
       this._check(sprite, hudSprite);
     } else {
+      this.song.fadeIn(2000);
       this.banner.text = 'FIN DE CANCIÓN';
-      this.state.start('Menu');
+      this.state.start('Finish');
     }
 
     this._checkInput(this.cursors.left, 'l');
@@ -147,6 +163,10 @@ export default class Game extends Phaser.State {
     }
 
     if(centerHub.y - range < centerSprite.y) {
+      if(this.songStatus.range == 'perfect' && !this.claped) {
+        this.clap.play();
+        this.claped = true;
+      }
       this.songStatus.range = name;
       this.songStatus.note = sprite.data;
       if (callback) callback();
@@ -192,6 +212,7 @@ export default class Game extends Phaser.State {
         status: null
       }
       this.noteSprites.splice(0,1);
+      this.claped = false;
     });
   }
 
