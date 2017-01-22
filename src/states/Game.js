@@ -148,6 +148,7 @@ export default class Game extends Phaser.State {
             this.rc.y -= 15;
             break;
           case 'n':
+          if (this.songStatus.range == 'perfect') this.game.camera.shake(0.005, 200);
             this.lc.y -= 15;
             this.rc.y -= 15;
             break;
