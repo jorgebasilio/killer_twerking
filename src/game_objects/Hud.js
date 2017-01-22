@@ -25,10 +25,11 @@ export default class Hud extends Phaser.Group {
   }
 
   _createBackground() {
-    let graphics;
-    graphics = new Row(game, 0, 0, 350, 90, 0x712871);
-    graphics.alpha = 0.5;
-    this.add(graphics);
+    this.hud = new Phaser.Sprite(game, 0, 0, 'gui_hud');
+    this.hud.alpha = 0.5;
+    this.hud.width = 350;
+    this.hud.height = 90;
+    this.add(this.hud);
   }
 
   _spriteByNote(note) {
